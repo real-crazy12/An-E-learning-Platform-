@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="E-learning.css">
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+    
+    <title>E-learning Platform</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md   ">
+      <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="index.html">
+          <img src="image/logo.png" alt="Logo" width="160" height="160" class="d-inline-block align-text-center me-2">
+        </a>
+        
+        <!-- Toggler button for mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="index.html">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about_us.html">ABOUT US</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Learning-tips.html">LEARNING TIPS</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="favorites.html">FAVORITES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">SIGN UP</a>
+            </li>
+            <!-- Logout button -->
+            <button id="logoutButton" class="btn btn-danger me-3" style="border-radius: 10px;" onclick="logout()">Logout</button>
+          </ul>
+          <!-- Dark mode toggle -->
+          <i class="fa fa-toggle-off toggle-icon" ></i>
+        </div>
+    </nav>
+ 
+      
+  
+    <!-- Search Bar -->
+<div class="input-group search-bar mx-auto" style="position: relative;">
+  <input 
+    type="search" 
+    id="course-search" 
+    class="form-control" 
+    placeholder="Search for a course..." 
+    aria-label="Search" 
+    aria-describedby="search-addon"
+    autocomplete="on"  />
+  <button class="input-group-text" id="search-btn">
+    <i class="bx bx-search-alt-2" style="font-size: 2rem;"></i>
+  </button>
+  <button id="clear-history-btn" class="btn-primary">Clear History</button>
+  <ul id="search-results"></ul>
+  <!-- Suggestion Dropdown -->
+  <div class="suggestion-dropdown"></div>
+</div>
+
+    
+    
+
+      <section class="my-3">
+        <div id="school" class="carousel slide carousel-fade" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#school" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#school" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#school" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#school" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#school" data-bs-slide-to="4" aria-label="Slide 5"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="image/html.jpg" class="d-block w-100" alt="Web Design & Development Courses">
+            </div>
+            <div class="carousel-item">
+              <img src="image/real estate.jpg" class="d-block w-100" alt="real estate">
+            </div>
+            <div class="carousel-item">
+              <img src="image/business admin.jpg" class="d-block w-100" alt="business admin">
+            </div>
+            <div class="carousel-item">
+              <img src="image/pr.png" class="d-block w-100" alt="Public Relations">
+            </div>
+            <div class="carousel-item">
+              <img src="image/UX.jpg" class="d-block w-100" alt="UX">      
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#school" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#school" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </section>
+      <div class="container  my-5">
+        <div class="row" >
+            <div class="col-lg-4" >
+                <img src="image/business admin.jpg" class="bd-placeholder-img rounded-circle" width="140" height="140" alt="Image 1">
+                <h2 class="fw-normal">Welcome to our Business Administration Course</h2>
+                <p>
+                  Discover the fundamentals of Business Administration in this comprehensive course. Learn key concepts in management, finance, marketing, and operations to prepare for a successful career in the business world. Whether you're starting your journey or enhancing your skills, this course offers valuable insights and practical knowledge to help you thrive.</p>
+                <p><a class="btn btn-primary" href="Business Administration.html">View details »</a></p>
+            </div>
+            <div class="col-lg-4" >
+                <img src="image/public relations.jpg" class="bd-placeholder-img rounded-circle" width="140" height="140" alt="Image 2">
+                <h2 class="fw-normal">Welcome to our Public Relations Course</h2>
+                <p>
+                  Dive into the dynamic field of Public Relations with this engaging course. Master the art of communication, media relations, and strategic planning to build and maintain a positive public image for organizations. Gain the skills to effectively manage crises, craft compelling messages, and foster strong relationships with stakeholders.</p>
+                <p><a class="btn btn-primary" href="PR.html">View details »</a></p>
+            </div>
+            <div class="col-lg-4">
+                <img src="image/real estate.jpg" class="bd-placeholder-img rounded-circle" width="140" height="140" alt="Image 3">
+                <h2 class="fw-normal">Welcome to our Real Estate Management Course</h2>
+                <p>Explore the exciting world of Real Estate Management in this detailed course. Understand the principles of property management, investment strategies, and market analysis. Learn how to effectively manage residential, commercial, and industrial properties, and gain the expertise to excel in the competitive real estate industry.</p>
+                <p><a class="btn btn-primary" href="Real Estate.html">View details »</a></p>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+        
+            <section>
+                <div class="container px-4 py-5" id="featured-3">
+                    <h2 class="pb-2 border-bottom">Available Courses(IT) </h2>
+            
+                              <div class="album py-5">
+                                  <div class="row justify-content-center" >
+                                      <div class="col-md-4 my-3">
+                                          <div class="card" data-card-id="course-1">
+                                              <img class="card-img-top" src="image/html.jpg" alt="Web Design & Development">
+                                              <div class="card-body text-center">
+                                                <h5 class="card-title"> <a href="Web_dev.html" class="links">Web Design & Development Courses</a></h5>
+                                               <!--Icon heart-->
+                                               <i 
+                                               class="fa-regular fa-heart love-icon"
+                                               data-id="course-1"
+                                               data-title="Web Design & Development Courses"
+                                               data-description="Learn the fundamentals of creating responsive and visually appealing websites using HTML, CSS, and JavaScript using visual studio code"
+                                               data-image="image/html.jpg"
+                                               data-link="Web_dev.html"
+                                             ></i>
+                                                <p class="card-text">Learn the fundamentals of creating responsive and visually appealing websites using HTML, CSS, and JavaScript using visual studio code</p>
+                                              </div>
+                                             <!--icons-->
+                                              <div class="stars  px-3 ">
+                                                <i class="fa-regular fa-star" data-rating="1"></i>
+                                                <i class="fa-regular fa-star" data-rating="2"></i>
+                                                <i class="fa-regular fa-star" data-rating="3"></i>
+                                                <i class="fa-regular fa-star" data-rating="4"></i>
+                                                <i class="fa-regular fa-star" data-rating="5"></i>
+                                              
+                                                <!-- User's Rating -->
+                                                <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                                                </div>
+                                                
+                                              <div class="card-footer d-flex justify-content-between align-items-center px-3">
+                                                  <div class="d-flex align-items-center">
+                                                      <i class='bx bxs-book'></i>
+                                                      <span class="ms-2">11 Lectures</span>
+                                                  </div>
+                                                  <div class="d-flex align-items-center">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                        <div class="col-md-4 my-3">
+                                            <div class="card" data-card-id="course-2">
+                                                <img class="card-img-top" src="image/UX.jpg" alt="Learn UX/UI Design">
+                                                <div class="card-body text-center">
+                                                  <h5 class="card-title"> <a href="UX_UI.html" class="links">Learn UX/UI Design</a></h5>
+                                                   <!--Icon heart-->
+                                                   <i 
+                                               class="fa-regular fa-heart love-icon"
+                                               data-id="course-2"
+                                               data-title="Learn UX/UI Design"
+                                               data-description="Explore the principles of user experience and user interface design. Learn to create intuitive, user-friendly designs that enhance the overall user experience and drive engagement."
+                                               data-image="image/UX.jpg"
+                                               data-link="UX_UI.html"
+                                             ></i>
+                                                  <p class="card-text">Explore the principles of user experience and user interface design. Learn to create intuitive, user-friendly designs that enhance the overall user experience and drive engagement.</p>
+                                                </div>
+                                             
+                                                   <!--icons-->
+                                              <div class="stars  px-3 ">
+                                                <i class="fa-regular fa-star" data-rating="1"></i>
+                                                <i class="fa-regular fa-star" data-rating="2"></i>
+                                                <i class="fa-regular fa-star" data-rating="3"></i>
+                                                <i class="fa-regular fa-star" data-rating="4"></i>
+                                                <i class="fa-regular fa-star" data-rating="5"></i>
+                                              
+                                                <!-- User's Rating -->
+                                                <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                                                </div>
+                                              <div class="card-footer d-flex justify-content-between align-items-center px-3">
+                                                  <div class="d-flex align-items-center">
+                                                      <i class='bx bxs-book'></i>
+                                                      <span class="ms-2">11 Lectures</span>
+                                                  </div>
+                                                  <div class="d-flex align-items-center">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                        <div class="col-md-4 my-3">
+                                            <div class="card" >
+                                                <img class="card-img-top" src="image/PYTHON.jpg" alt="Learn Python">
+                                                <div class="card-body text-center">
+                                                  <h5 class="card-title"> <a href="Python.html" class="links">Learn Python for Data Science</a></h5>
+                                                  <!--Icon heart-->
+                                                  <i 
+                                                  class="fa-regular fa-heart love-icon"
+                                                  data-id="course-3"
+                                                  data-title="Learn Python for Data Science"
+                                                  data-description="Dive into the world of data science with Python. Learn to analyze data, create visualizations, and implement machine learning algorithms to uncover insights and make data-driven decisions."
+                                                  data-image="image/PYTHON.jpg"
+                                                  data-link="Python.html"
+                                                ></i>
+                                                  <p class="card-text">Dive into the world of data science with Python. Learn to analyze data, create visualizations, and implement machine learning algorithms to uncover insights and make data-driven decisions.</p>
+                                                </div>
+                                                  <!--icons-->
+                                               <!--icons-->
+                                               <div class="stars  px-3 ">
+                                                <i class="fa-regular fa-star" data-rating="1"></i>
+                                                <i class="fa-regular fa-star" data-rating="2"></i>
+                                                <i class="fa-regular fa-star" data-rating="3"></i>
+                                                <i class="fa-regular fa-star" data-rating="4"></i>
+                                                <i class="fa-regular fa-star" data-rating="5"></i>
+                                              
+                                                <!-- User's Rating -->
+                                                <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                                                </div>
+                                              <div class="card-footer d-flex justify-content-between align-items-center px-3">
+                                                  <div class="d-flex align-items-center">
+                                                      <i class='bx bxs-book'></i>
+                                                      <span class="ms-2">21 Lectures</span>
+                                                  </div>
+                                                  <div class="d-flex align-items-center">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="container"> <!--to help keep all cards inline that's why we have containers-->
+                                        <div class="container"> <!--to help keep all cards inline that's why we have containers-->
+                                            <div class="row justify-content-center">
+                                              <div class="col-md-4 my-3">
+                                                <div class="card" >
+                                                  <img class="card-img-top" src="image/Data Science.jpg" alt="Data Science ">
+                                                  <div class="card-body text-center text-center">
+                                                    <h5 class="card-title"> <a href="Machine_Learning.html" class="links">Machine Learning</a></h5>
+                                                       <!--Icon heart-->
+                                                       <i 
+                                                       class="fa-regular fa-heart love-icon"
+                                                       data-id="course-4"
+                                                       data-title="Machine Learning"
+                                                       data-description="Master the concepts of machine learning, data science, and deep learning. Gain hands-on experience with algorithms, neural networks, and real-world applications to solve complex problems"
+                                                       data-image="image/Data Science.jpg"
+                                                       data-link="Machine_Learning.html"
+                                                     ></i>
+                                                    <p class="card-text">Master the concepts of machine learning, data science, and deep learning. Gain hands-on experience with algorithms, neural networks, and real-world applications to solve complex problems</p>
+                                                  </div>
+                                                   <!--icons-->
+                                                     <!--icons-->
+                                                     <div class="stars  px-3 ">
+                                                      <i class="fa-regular fa-star" data-rating="1"></i>
+                                                      <i class="fa-regular fa-star" data-rating="2"></i>
+                                                      <i class="fa-regular fa-star" data-rating="3"></i>
+                                                      <i class="fa-regular fa-star" data-rating="4"></i>
+                                                      <i class="fa-regular fa-star" data-rating="5"></i>
+                                                    
+                                                      <!-- User's Rating -->
+                                                      <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                                                      </div>
+                                                  <div class="card-footer d-flex justify-content-between align-items-center px-3">
+                                                      <div class="d-flex align-items-center">
+                                                          <i class='bx bxs-book'></i>
+                                                          <span class="ms-2">25 Lectures</span>
+                                                      </div>
+                                                      <div class="d-flex align-items-center">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                              <div class="col-md-4 my-3">
+                                                <div class="card" >
+                                                  <img class="card-img-top" src="image/photoshop.jpg" alt="Graphic Designing">
+                                                  <div class="card-body text-center text-center">
+                                                   <h5 class="card-title"> <a href="Graphic_design.html" class="links">Graphic Designing</a></h5>
+                                                   <!--Icon heart-->
+                                                   <i 
+                                                   class="fa-regular fa-heart love-icon"
+                                                   data-id="course-5"
+                                                   data-title="Graphic Designing"
+                                                   data-description="Develop your creative skills and learn the fundamentals of graphic design. Create visually compelling graphics, logos, and layouts using industry-standard tools and techniques."
+                                                   data-image="image/photoshop.jpg"
+                                                   data-link="Graphic_design.html"
+                                                 ></i>
+                                                   <p class="card-text">Develop your creative skills and learn the fundamentals of graphic design. Create visually compelling graphics, logos, and layouts using industry-standard tools and techniques.</p>
+                                                  </div>
+                                                    <!--icons-->
+                                                    <div class="stars  px-3 ">
+                                                      <i class="fa-regular fa-star" data-rating="1"></i>
+                                                      <i class="fa-regular fa-star" data-rating="2"></i>
+                                                      <i class="fa-regular fa-star" data-rating="3"></i>
+                                                      <i class="fa-regular fa-star" data-rating="4"></i>
+                                                      <i class="fa-regular fa-star" data-rating="5"></i>
+                                                    
+                                                      <!-- User's Rating -->
+                                                      <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                                                      </div>
+                                                  <div class="card-footer d-flex justify-content-between align-items-center px-3">
+                                                      <div class="d-flex align-items-center">
+                                                          <i class='bx bxs-book'></i>
+                                                          <span class="ms-2">15 Lectures</span>
+                                                      </div>
+                                                      <div class="d-flex align-items-center">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                              <div class="col-md-4 my-3">
+                                                <div class="card" >
+                                                  <img class="card-img-top" src="image/php.jpg" alt="PHP">
+                                                  <div class="card-body text-center text-center">
+                                                    <h5 class="card-title"> <a href="PHP.html" class="links">PHP with - CMS Project</a></h5>
+                                                     <!--Icon heart-->
+                                                      <i 
+                                                      class="fa-regular fa-heart love-icon"
+                                                      data-id="course-6"
+                                                      data-title="PHP with - CMS Project"
+                                                      data-description="Learn PHP to Develop Dynamic Web Applications. Understand the basics of server-side scripting, form handling, and database interactions to create robust and efficient web solutions with PHP."
+                                                      data-image="image/php.jpg"
+                                                      data-link="PHP.html"
+                                                    ></i>
+                                                    <p class="card-text"> Learn PHP to Develop Dynamic Web Applications. Understand the basics of server-side scripting, form handling, and database interactions to create robust and efficient web solutions with PHP.</p>
+                                                  </div>
+                                                     <!--icons-->
+                                                     <div class="stars  px-3 ">
+                                                      <i class="fa-regular fa-star" data-rating="1"></i>
+                                                      <i class="fa-regular fa-star" data-rating="2"></i>
+                                                      <i class="fa-regular fa-star" data-rating="3"></i>
+                                                      <i class="fa-regular fa-star" data-rating="4"></i>
+                                                      <i class="fa-regular fa-star" data-rating="5"></i>
+                                                    
+                                                      <!-- User's Rating -->
+                                                      <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                                                      </div>
+                                                    <div class="card-footer d-flex justify-content-between align-items-center px-3">
+                                                        <div class="d-flex align-items-center">
+                                                            <i class='bx bxs-book'></i>
+                                                            <span class="ms-2">20 Lectures</span>
+                                                        </div>
+                                                        <div class="d-flex align-items-center">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                            <div class="container"> <!--to help keep all cards inline that's why we have containers-->
+                                              <div class="container"> <!--to help keep all cards inline that's why we have containers-->
+                                                  <div class="row justify-content-center">
+                                                    <div class="col-md-4 my-3">
+                                                      <div class="card" >
+                                                        <img class="card-img-top" src="image/boots.jpg" alt="Bootstrap ">
+                                                        <div class="card-body text-center text-center">
+                                                          <h5 class="card-title"> <a href="bootstrap.html" class="links">Bootstrap 5 From Scratch</a></h5> 
+                                                          <!--Icon heart-->
+                                                          <i 
+                                                          class="fa-regular fa-heart love-icon"
+                                                          data-id="course-7"
+                                                          data-title="Bootstrap 5 From Scratch"
+                                                          data-description="Master Bootstrap to Create Responsive Web Designs. Learn about its grid system, components, and utilities to build sleek and mobile-friendly websites effortlessly with Bootstrap."
+                                                          data-image="image/boots.jpg"
+                                                          data-link="bootstrap.html"
+                                                        ></i>
+                                                          <p class="card-text">Master Bootstrap to Create Responsive Web Designs. Learn about its grid system, components, and utilities to build sleek and mobile-friendly websites effortlessly with Bootstrap.</p>
+                                                        
+                                                        </div>
+                                                          <!--icons-->
+                                                          <div class="stars  px-3 ">
+                                                            <i class="fa-regular fa-star" data-rating="1"></i>
+                                                            <i class="fa-regular fa-star" data-rating="2"></i>
+                                                            <i class="fa-regular fa-star" data-rating="3"></i>
+                                                            <i class="fa-regular fa-star" data-rating="4"></i>
+                                                            <i class="fa-regular fa-star" data-rating="5"></i>
+                                                          
+                                                            <!-- User's Rating -->
+                                                            <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                                                            </div>
+                                                          <div class="card-footer d-flex justify-content-between align-items-center px-3">
+                                                              <div class="d-flex align-items-center">
+                                                                  <i class='bx bxs-book'></i>
+                                                                  <span class="ms-2">10 Lectures</span>
+                                                              </div>
+                                                              <div class="d-flex align-items-center">
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                    <div class="col-md-4 my-3">
+                                                      <div class="card" >
+                                                        <img class="card-img-top" src="image/IOT.jpg" alt="Internet of Things">
+                                                        <div class="card-body text-center text-center">
+                                                          <h5 class="card-title"> <a href="IOT.html" class="links">Internet of Things</a></h5>                                     <!--Icon heart-->
+                                                           <!--Icon heart-->
+                                                           <i 
+                                                           class="fa-regular fa-heart love-icon"
+                                                           data-id="course-8"
+                                                           data-title="Internet of Things"
+                                                           data-description="Explore the innovative world of IoT. Learn to connect devices, collect data, and implement IoT solutions that improve efficiency, productivity, and connectivity in various industries"
+                                                           data-image="image/IOT.jpg"
+                                                           data-link="IOT.html"
+                                                         ></i>
+                                                             <p class="card-text">Explore the innovative world of IoT. Learn to connect devices, collect data, and implement IoT solutions that improve efficiency, productivity, and connectivity in various industries</p>
+                                                        </div>
+                                                          <!--icons-->
+                                                          <div class="stars  px-3 ">
+                                                            <i class="fa-regular fa-star" data-rating="1"></i>
+                                                            <i class="fa-regular fa-star" data-rating="2"></i>
+                                                            <i class="fa-regular fa-star" data-rating="3"></i>
+                                                            <i class="fa-regular fa-star" data-rating="4"></i>
+                                                            <i class="fa-regular fa-star" data-rating="5"></i>
+                                                          
+                                                            <!-- User's Rating -->
+                                                            <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                                                            </div>
+                                                          <div class="card-footer d-flex justify-content-between align-items-center px-3">
+                                                              <div class="d-flex align-items-center">
+                                                                  <i class='bx bxs-book'></i>
+                                                                  <span class="ms-2">27 Lectures</span>
+                                                              </div>
+                                                              <div class="d-flex align-items-center">
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                    <div class="col-md-4 my-3">
+                                                      <div class="card" >
+                                                        <img class="card-img-top" src="image/react.jpg" alt="React">
+                                                        <div class="card-body text-center text-center">
+                                                          <h5 class="card-title"> <a href="React.html" class="links">Learning with React-Native</a></h5>
+                                                          <!--Icon heart-->
+                                                         <i 
+                                                         class="fa-regular fa-heart love-icon"
+                                                         data-id="course-9"
+                                                         data-title="Learning with React-Native"
+                                                         data-description="Master React to Build Dynamic Web Applications. Learn about components, state management, and hooks to create interactive and efficient user interfaces with React."
+                                                         data-image="image/react.jpg"
+                                                         data-link="React.html"
+                                                       ></i>
+                                                          <p class="card-text"> Master React to Build Dynamic Web Applications. Learn about components, state management, and hooks to create interactive and efficient user interfaces with React.</p>
+                                                        </div>
+                                                       <!--icons-->
+                                                       <div class="stars  px-3 ">
+                                                        <i class="fa-regular fa-star" data-rating="1"></i>
+                                                        <i class="fa-regular fa-star" data-rating="2"></i>
+                                                        <i class="fa-regular fa-star" data-rating="3"></i>
+                                                        <i class="fa-regular fa-star" data-rating="4"></i>
+                                                        <i class="fa-regular fa-star" data-rating="5"></i>
+                                                      
+                                                        <!-- User's Rating -->
+                                                        <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                                                        </div>
+                                                      <div class="card-footer d-flex justify-content-between align-items-center px-3">
+                                                          <div class="d-flex align-items-center">
+                                                              <i class='bx bxs-book'></i>
+                                                              <span class="ms-2">16 Lectures</span>
+                                                          </div>
+                                                          <div class="d-flex align-items-center">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>    
+                                </section>
+                        
+            <section> 
+            <!-- Why you should use our E-Learning Platform -->
+            <div class="container px-4 py-5" id="featured-3">
+              <h2 class="pb-2 border-bottom">Why Choose Our AI-Powered E-Learning Platform?</h2>
+            
+              <div class="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
+                <div class="col d-flex flex-column align-items-start gap-2">
+                  <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-info bg-gradient fs-4 rounded-3 p-3">
+                    <i class="fas fa-headphones-alt text-white fa-1.5x"></i>
+                  </div>
+                  <h2 class="fw-bold text-body-emphasis">Text-to-Speech (TTS) Learning:</h2>
+                  <p class="text-body-secondary">Listen to course material with our advanced TTS system, making learning more accessible and engaging.</p>
+                  <img src="image/online learning.jpg" alt="TTS Demo" width="100%" style="border-radius: 20px;" height="80%">
+                </div>
+            
+                <div class="col">
+                  <div class="row row-cols-1 row-cols-sm-2 g-4">
+                    <div class="col d-flex flex-column gap-2">
+                      <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-success bg-gradient fs-4 rounded-3 p-3">
+                        <i class="fas fa-file-audio text-white fa-1.5x"></i>
+                      </div>
+                      <h4 class="fw-semibold mb-0 text-body-emphasis">Downloadable Audio</h4>
+                      <p class="text-body-secondary">Access lecture audios offline and study anytime, anywhere.</p>
+                    </div>
+            
+                    <div class="col d-flex flex-column gap-2">
+                      <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-danger bg-gradient fs-4 rounded-3 p-3">
+                        <i class="fas fa-robot text-white fa-1.5x"></i>
+                      </div>
+                      <h4 class="fw-semibold mb-0 text-body-emphasis">AI Chatbot Support</h4>
+                      <p class="text-body-secondary">Get instant assistance with our AI-powered chatbot for doubt clarification and learning recommendations.</p>
+                    </div>
+            
+                    <div class="col d-flex flex-column gap-2">
+                      <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-warning bg-gradient fs-4 rounded-3 p-3">
+                        <i class="fas fa-language text-white fa-1.5x"></i>
+                      </div>
+                      <h4 class="fw-semibold mb-0 text-body-emphasis">Multilingual Learning</h4>
+                      <p class="text-body-secondary">Access courses in multiple languages, including English, French, Spanish, and more.</p>
+                    </div>
+            
+                    <div class="col d-flex flex-column gap-2">
+                      <div class="feature-icon-small d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3 p-3">
+                        <i class="fas fa-graduation-cap text-white fa-1.5x"></i>
+                      </div>
+                      <h4 class="fw-semibold mb-0 text-body-emphasis">Access Free Courses</h4>
+                      <p class="text-body-secondary">Explore a wide range of courses at no cost and learn at your own pace.</p>
+                    </div>                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>              
+
+            <div class="container">
+              <div class="container px-4 py-5" id="featured-3">
+                <h2 class="pb-2 border-bottom">Trending Courses<i class="fas fa-bolt" style="color: gold;"></i></h2>
+                <div class="swiper my-5">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                      <div class="card" >
+                        <div class="image-container">
+                          <img class="card-img-top" src="image/react.jpg" alt="react">
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"><a href="React.html" class="links">Deep Learning with React-Native</a></h5>
+                           <!--Icon heart-->
+                           <i 
+                           class="fa-regular fa-heart love-icon"
+                           data-id="course-9"
+                           data-title="Learning with React-Native"
+                           data-description="Master React to Build Dynamic Web Applications. Learn about components, state management, and hooks to create interactive and efficient user interfaces with React."
+                           data-image="image/react.jpg"
+                           data-link="React.html"
+                         ></i>
+                          <p class="card-text">Master React to Build Dynamic Web Applications.</p>
+                           <!--icons-->
+                           <div class="stars  px-3 ">
+                            <i class="fa-regular fa-star" data-rating="1"></i>
+                            <i class="fa-regular fa-star" data-rating="2"></i>
+                            <i class="fa-regular fa-star" data-rating="3"></i>
+                            <i class="fa-regular fa-star" data-rating="4"></i>
+                            <i class="fa-regular fa-star" data-rating="5"></i>
+                          
+                            <!-- User's Rating -->
+                            <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="card" >
+                        <div class="image-container">
+                          <img class="card-img-top" src="image/html.jpg" alt="HTML">
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"><a href="Web_dev.html" class="links">Web Design & Development Courses</a></h5>
+                           <!--Icon heart-->
+                           <i 
+                           class="fa-regular fa-heart love-icon"
+                           data-id="course-1"
+                           data-title="Web Design & Development Courses"
+                           data-description="Learn the fundamentals of creating responsive and visually appealing websites using HTML, CSS, and JavaScript using visual studio code"
+                           data-image="image/html.jpg"
+                           data-link="Web_dev.html"
+                         ></i>
+                          <p class="card-text">Learn the fundamentals of the web with HTML, CSS, and JS</p>
+                           <!--icons-->
+                           <div class="stars  px-3 ">
+                            <i class="fa-regular fa-star" data-rating="1"></i>
+                            <i class="fa-regular fa-star" data-rating="2"></i>
+                            <i class="fa-regular fa-star" data-rating="3"></i>
+                            <i class="fa-regular fa-star" data-rating="4"></i>
+                            <i class="fa-regular fa-star" data-rating="5"></i>
+                          
+                            <!-- User's Rating -->
+                            <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="card" >
+                        <div class="image-container">
+                          <img class="card-img-top" src="image/UX.jpg" alt="UX">
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"><a href="UX_UI.html" class="links"> Learn UX & UI Design</a></h5>
+                           <!--Icon heart-->
+                           <i 
+                           class="fa-regular fa-heart love-icon"
+                           data-id="course-2"
+                           data-title="Learn UX/UI Design"
+                           data-description="Explore the principles of user experience and user interface design. Learn to create intuitive, user-friendly designs that enhance the overall user experience and drive engagement."
+                           data-image="image/UX.jpg"
+                           data-link="UX_UI.html"
+                         ></i>
+                          <p class="card-text">Explore the principles of user experience and user interface design.</p>
+                         <!--icons-->
+                         <div class="stars  px-3 ">
+                          <i class="fa-regular fa-star" data-rating="1"></i>
+                          <i class="fa-regular fa-star" data-rating="2"></i>
+                          <i class="fa-regular fa-star" data-rating="3"></i>
+                          <i class="fa-regular fa-star" data-rating="4"></i>
+                          <i class="fa-regular fa-star" data-rating="5"></i>
+                        
+                          <!-- User's Rating -->
+                          <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="card" >
+                        <div class="image-container">
+                          <img class="card-img-top" src="image/PYTHON.jpg" alt="PYTHON">
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"><a href="Python.html" class="links"> Python</a></h5>
+                           <!--Icon heart-->
+                           <i 
+                            class="fa-regular fa-heart love-icon"
+                             data-id="course-3"
+                              data-title="Learn Python for Data Science"
+                              data-description="Dive into the world of data science with Python. Learn to analyze data, create visualizations, and implement machine learning algorithms to uncover insights and make data-driven decisions."
+                               data-image="image/PYTHON.jpg"
+                               data-link="Python.html"
+                                 ></i>
+                          <p class="card-text">Dive into the world of data science with Python. Learn to analyze data etc.</p>
+                           <!--icons-->
+                           <div class="stars  px-3 ">
+                            <i class="fa-regular fa-star" data-rating="1"></i>
+                            <i class="fa-regular fa-star" data-rating="2"></i>
+                            <i class="fa-regular fa-star" data-rating="3"></i>
+                            <i class="fa-regular fa-star" data-rating="4"></i>
+                            <i class="fa-regular fa-star" data-rating="5"></i>
+                          
+                            <!-- User's Rating -->
+                            <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="card" >
+                        <div class="image-container">
+                          <img class="card-img-top" src="image/php.jpg" alt="php">
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"><a href="PHP.html" class="links"> PHP with - CMS Project</a></h5>
+                           <!--Icon heart-->
+                           <i 
+                           class="fa-regular fa-heart love-icon"
+                           data-id="course-6"
+                           data-title="PHP with - CMS Project"
+                           data-description="Learn PHP to Develop Dynamic Web Applications. Understand the basics of server-side scripting, form handling, and database interactions to create robust and efficient web solutions with PHP."
+                           data-image="image/php.jpg"
+                           data-link="PHP.html"
+                         ></i>
+                          <p class="card-text">Learn PHP to Develop Dynamic Web Applications. Understand the basics of PHP</p>
+                          <!--icons-->
+                          <div class="stars  px-3 ">
+                            <i class="fa-regular fa-star" data-rating="1"></i>
+                            <i class="fa-regular fa-star" data-rating="2"></i>
+                            <i class="fa-regular fa-star" data-rating="3"></i>
+                            <i class="fa-regular fa-star" data-rating="4"></i>
+                            <i class="fa-regular fa-star" data-rating="5"></i>
+                          
+                            <!-- User's Rating -->
+                            <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="card" >
+                        <div class="image-container">
+                          <img class="card-img-top" src="image/crisis.jpg" alt="pr">
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"><a href="Crisis_Communication.html" class="links"> Crisis Communication</a></h5>
+                          <!--Icon heart-->
+                          <i 
+                         class="fa-regular fa-heart love-icon"
+                         data-id="course-20"
+                          data-title="Crisis Communication"
+                         data-description="Explore strategies for managing communication during crises, including damage control and maintaining public trust."
+                          data-image="image/crisis.jpg"
+                           data-link="Crisis_Communication.html"
+                                      ></i>
+                          <p class="card-text">Explore strategies for managing communication during crises, including damage control.</p>
+                          <!--icons-->
+                          <div class="stars  px-3 ">
+                            <i class="fa-regular fa-star" data-rating="1"></i>
+                            <i class="fa-regular fa-star" data-rating="2"></i>
+                            <i class="fa-regular fa-star" data-rating="3"></i>
+                            <i class="fa-regular fa-star" data-rating="4"></i>
+                            <i class="fa-regular fa-star" data-rating="5"></i>
+                          
+                            <!-- User's Rating -->
+                            <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide">
+                      <div class="card" >
+                        <div class="image-container">
+                          <img class="card-img-top" src="image/event management.jpg" alt="event">
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title"><a href="Event_Management.html" class="links">Event Management</a></h5>
+                           <!--Icon heart-->
+                           <i 
+                              class="fa-regular fa-heart love-icon"
+                              data-id="course-24"
+                               data-title="Event Planning & Management"
+                              data-description="Learn how to plan, organize, and execute events that support public relations objectives."
+                              data-image="image/event management.jpg"
+                               data-link="Event_Management.html"
+                                ></i>
+                          <p class="card-text">Learn how to plan, organize, and execute events that support PR objectives.</p>
+                            <!--icons-->
+                            <div class="stars  px-3 ">
+                              <i class="fa-regular fa-star" data-rating="1"></i>
+                              <i class="fa-regular fa-star" data-rating="2"></i>
+                              <i class="fa-regular fa-star" data-rating="3"></i>
+                              <i class="fa-regular fa-star" data-rating="4"></i>
+                              <i class="fa-regular fa-star" data-rating="5"></i>
+                            
+                              <!-- User's Rating -->
+                              <p id="user-rating" class="text mt-2">Your Rating: 0</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Add Pagination -->
+                  <div class="swiper-pagination"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+      
+          
+            <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+            <script>
+              const swiper = new Swiper('.swiper', {
+                direction: 'horizontal',
+                loop: true,
+                spaceBetween: 30,
+                autoplay: {
+                  delay: 2500,
+                  disableOnInteraction: false,
+                },
+                pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+                },
+                navigation: {
+                  nextEl: '.swiper-button-next',
+                  prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                  768: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                  },
+                  769: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                  },
+                },
+              });
+            </script>
+            
+            <section>
+              <button id="backToTop" title="Go to top">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+
+            </section>
+
+
+ <!-- Modal for Confirmation -->
+<div class="modal fade" id="favoriteModal" tabindex="-1" aria-labelledby="favoriteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="favoriteModalLabel">Course Added to Favorites</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        The course has been successfully added to your favorites!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="favorites.html" class="btn btn-primary">Go to Favorites</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Favorite  Toast Notification -->
+<div class="toast-container position-fixed p-3">
+  <div id="toastNotification" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="toastMessage">
+        <!-- Message will be injected dynamically -->
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Alert modal for login(Bootstrap) -->
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="alertModalLabel">Alert</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="alertModalBody">
+              <!-- Message will appear here -->
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Welcome Message on Home page Toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="debugToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Welcome</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body" id="debugToastMessage">
+      <!-- Dynamic message will appear here -->
+    </div>
+  </div>
+</div>
+
+<!-- Loading spinner (hidden by default) -->
+<div id="loadingSpinner" class="spinner-overlay" style="display: none;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+  <!-- Floating Chat Icon -->
+  <button class="chat-icon" id="chat-icon">
+    <i class="fa fa-comment"></i>
+  </button>
+
+       
+<div id="popupContainer"></div>
+
+        <script src="E-learning.js"></script>
+        
+</body>
+</html>
+
+
+ 
