@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+    />
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon" />
+    <title>PHP PDF</title>
+    <style>
+      body {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        padding: 20px;
+      }
+      .pdf-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 800px;
+        margin: auto;
+      }
+      .pdf-text {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        max-height: 400px;
+        overflow-y: auto;
+        font-size: 1.2rem;
+        color: #333;
+        line-height: 1.8;
+        text-align: justify;
+        position: relative;
+      }
+      .slider-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .custom-select-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 150px;
+      }
+      .background-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("image/php.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: brightness(0.6);
+        z-index: -1;
+      }
+      /* Floating Chat Icon */
+      .chat-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        padding: 15px;
+        font-size: 24px;
+        cursor: pointer;
+        z-index: 1000;
+      }
+       /* Style for the highlighted word */
+.highlighted {
+  background-color: yellow;   /* Highlight background */
+  color: black;               /* Text color */
+  font-weight: bold;          /* Make the word bold for emphasis */
+  border-radius: 4px;         /* Add slight rounding to the highlight */
+  padding: 2px 4px;           /* Small padding around the word */
+  transition: background-color 0.2s ease-in-out;  /* Smooth transition for highlights */
+}
+
+/* Ensure the regular spans are styled neutrally */
+#pdfViewer span {
+  background-color: transparent;  /* Default background */
+  color: inherit;                 /* Inherit text color */
+}
+    </style>
+  </head>
+  <body>
+    <div class="pdf-container">
+      <div class="background-image"></div>
+      <h2>Introduction to PHP</h2>
+      <p>
+        This course provides an overview of PHP (Hypertext Preprocessor).
+        Explore the foundational concepts that enable server-side scripting,
+        allowing you to create dynamic and interactive web applications.
+        Understand how mastering PHP forms the backbone of backend development
+        and contributes to building robust, data-driven websites.
+      </p>
+      <div class="controls d-flex flex-wrap gap-2">
+        <select
+          id="languageSelect"
+          class="form-select custom-select-wrapper"
+          onchange="updateContent()"
+        >
+          <option value="English">English</option>
+          <option value="French">French</option>
+          <option value="Spanish">Spanish</option>
+        </select>
+        <select
+          id="chapterSelect"
+          class="form-select custom-select-wrapper"
+          onchange="updateContent()"
+        >
+          <option value="Chapter1">Chapter 1</option>
+          <option value="Chapter2">Chapter 2</option>
+        </select>
+        <select
+          id="voiceSelect"
+          class="form-select custom-select-wrapper"
+        ></select>
+
+        <button class="btn btn-primary" onclick="startTTS()">
+          Play Online
+        </button>
+        <button class="btn btn-secondary" onclick="pauseTTS()">Pause</button>
+        <button class="btn btn-success" onclick="resumeTTS()">Resume</button>
+        <button class="btn btn-danger" onclick="stopTTS()">Stop</button>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress my-3" style="height: 20px">
+        <div
+          id="progressBar"
+          class="progress-bar progress-bar-striped bg-success"
+          role="progressbar"
+          style="width: 0%"
+          aria-valuenow="0"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        ></div>
+      </div>
+
+      <div id="pdfViewer" class="pdf-text"></div>
+      <audio id="audioPlayer" controls></audio>
+
+      <a id="downloadPDF" class="btn btn-warning" download>Download PDF</a>
+      <a id="downloadAudio" class="btn btn-info" download>Download Audio</a>
+    </div>
+    <!-- Mark AS Done -->
+    <button class="btn btn-primary" id="markDoneBtn">
+      Mark Lecture as Done
+    </button>
+    <!-- Floating Chat Icon -->
+    <button class="chat-icon" id="chat-icon">
+      <i class="fa fa-comment"></i>
+    </button>
+    <!-- Container for toast notifications -->
+    <div
+      id="toast-container"
+      style="position: fixed; top: 20px; right: 20px; z-index: 1050"
+    ></div>
+   
+    <script>
+ let utterance;
+let speaking = false;
+let voices = [];
+let toastQueue = [];
+let showingToast = false;
+let currentHighlightIndex = 0;
+
+
+
+function updateContent() {
+  const language = document.getElementById("languageSelect").value;
+  const chapter = document.getElementById("chapterSelect").value;
+
+  const pdfPath = `documents/${chapter}${
+    chapter === "Chapter2" ? "_Data_Types_in_PHP" : "_IntroductionToPHP"
+  }${language !== "English" ? "_" + language : ""}.pdf`;
+
+  let audioExtensions = [".mp3", ".m4a"];// Add more extensions if needed
+  let foundAudio = false;
+
+for (let ext of audioExtensions) {
+  let tempAudioPath = `audio/PHP_Lesson${
+    chapter === "Chapter2" ? "2" : "1"
+  }_${language !== "English" ? language : "English"}${ext}`;
+
+  fetch(tempAudioPath, { method: "HEAD" })
+    .then((response) => {
+      if (response.ok && !foundAudio) {
+        foundAudio = true; // Mark as found to avoid overwriting later
+        audioPath = tempAudioPath;
+        document.getElementById("audioPlayer").src = audioPath;
+        document.getElementById("downloadAudio").href = audioPath;
+      }
+    })
+    .catch((error) =>
+      console.error("Error checking audio file existence:", error)
+    );
+}
+
+// If no file is found, default to English .mp3
+setTimeout(() => {
+  if (!foundAudio) {
+    console.warn(
+      `Audio file not found for selected language, defaulting to English`
+    );
+    audioPath = `audio/Digital_Lesson${
+      chapter === "Chapter2" ? "2" : "1"
+    }_English.mp3`;
+    document.getElementById("audioPlayer").src = audioPath;
+    document.getElementById("downloadAudio").href = audioPath;
+  }
+}, 500); // Small delay to allow fetch requests to process
+
+  // Check if the PDF file exists before attempting to load it
+  fetch(pdfPath, { method: 'HEAD' })
+    .then(response => {
+      if (!response.ok) {
+        console.error(`PDF file not found: ${pdfPath}`);
+        document.getElementById("pdfViewer").textContent = "Error loading PDF";
+      } else {
+        loadPDF(pdfPath);
+        document.getElementById("downloadPDF").href = pdfPath;
+      }
+    })
+    .catch(error => {
+      console.error("Error checking PDF file existence:", error);
+      document.getElementById("pdfViewer").textContent = "Error loading PDF";
+    });
+}
+
+async function loadPDF(pdfFile) {
+  const pdfViewer = document.getElementById("pdfViewer");
+
+  // Add Bootstrap loading spinner
+  pdfViewer.innerHTML = `
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  `;
+  
+  try {
+    const pdf = await pdfjsLib.getDocument(pdfFile).promise;
+    let text = "";
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      const pageText = textContent.items
+        .map((item) => item.str)
+        .join(" ");
+      text += `Page ${i}:\n${pageText}\n\n`;
+    }
+    pdfViewer.innerHTML = textToSpans(text);  // Wrap text in span elements
+  } catch (error) {
+    pdfViewer.textContent = "Error loading PDF";
+  }
+}
+
+function textToSpans(text) {
+  const words = text.split(/\s+/);  // Split text into individual words
+  return words.map((word, index) => `<span id="word-${index}">${word} </span>`).join("");
+}
+
+function startTTS() {
+  if (speaking) return;
+  const text = document.getElementById("pdfViewer").textContent;
+  utterance = new SpeechSynthesisUtterance(text);
+  utterance.voice = voices.find(
+    (voice) => voice.name === document.getElementById("voiceSelect").value
+  );
+   
+
+
+  const words = text.split(/\s+/);  // Split text into words
+  currentHighlightIndex = 0;
+
+  // Highlight the words as they are spoken
+  utterance.onboundary = (event) => {
+  if (event.name === "word" || event.name === "boundary") {
+    const spokenText = text.slice(0, event.charIndex); // Get spoken part
+    const wordsSpoken = spokenText.trim().split(/\s+/).length; // Count words spoken
+    highlightWord(wordsSpoken); // Highlight the correct word
+  }
+
+  const progress = Math.min(
+    Math.floor((event.charIndex / text.length) * 100),
+    100
+  );
+  document.getElementById("progressBar").style.width = `${progress}%`;
+};
+
+
+  utterance.onend = () => {
+    enqueueToast("Speech finished", "bg-primary", "check-circle");
+    document.getElementById("progressBar").style.width = "0%"; // Reset progress bar
+    resetHighlights();  // Reset highlights when TTS ends
+  };
+
+  speechSynthesis.speak(utterance);
+  speaking = true;
+}
+
+function highlightWord(index) {
+  // Reset all previous highlights
+  resetHighlights();
+
+  // Highlight the current word
+  const currentWord = document.getElementById(`word-${index}`);
+  if (currentWord) {
+    currentWord.style.backgroundColor = "yellow";
+  }
+}
+
+function resetHighlights() {
+  // Remove highlighting from all words
+  const spans = document.querySelectorAll("#pdfViewer span");
+  spans.forEach((span) => {
+    span.style.backgroundColor = "";
+  });
+}
+
+function pauseTTS() {
+  speechSynthesis.pause();
+  enqueueToast("Speech paused", "bg-warning", "pause-circle");
+}
+
+function resumeTTS() {
+  speechSynthesis.resume();
+  enqueueToast("Speech resumed", "bg-info", "play-circle");
+}
+
+function stopTTS() {
+  speechSynthesis.cancel();
+  speaking = false;
+  enqueueToast("Speech stopped", "bg-danger", "stop-circle");
+  document.getElementById("progressBar").style.width = "0%"; // Reset progress bar
+  resetHighlights();  // Reset highlights when TTS is stopped
+}
+
+// Toast Queue System
+function enqueueToast(message, className, icon) {
+  toastQueue.push({ message, className, icon });
+  if (!showingToast) {
+    dequeueToast();
+  }
+}
+
+function dequeueToast() {
+  if (toastQueue.length === 0) return;
+  showingToast = true;
+  const { message, className, icon } = toastQueue.shift();
+  showToast(message, className, icon);
+}
+
+function showToast(message, className, icon) {
+  const toast = document.createElement("div");
+  toast.className = `toast align-items-center text-white ${className} fade show border-0`;
+  toast.style = "position: absolute; top: 20px; right: 20px; z-index: 1050;";
+  toast.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class="bi bi-${icon} me-2"></i> <!-- Add icon here -->
+        ${message}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  `;
+  document.body.appendChild(toast);
+
+  const bsToast = new bootstrap.Toast(toast, { delay: 3000, autohide: true });
+  bsToast.show();
+
+  toast.addEventListener("hidden.bs.toast", () => {
+    toast.remove();
+    showingToast = false;
+    dequeueToast();
+  });
+}
+
+speechSynthesis.onvoiceschanged = () => {
+  voices = speechSynthesis.getVoices();
+  document.getElementById("voiceSelect").innerHTML = voices
+    .map((voice) => `<option value="${voice.name}">${voice.name}</option>`)
+    .join("");
+};
+
+document.addEventListener("DOMContentLoaded", updateContent);
+
+
+
+function showLectureToast(message, className, icon) {
+  const toast = document.createElement("div");
+  toast.className = `toast align-items-center text-white ${className} fade show border-0`;
+  toast.style =
+    "position: absolute; top: 20px; right: 20px; z-index: 1050;";
+  toast.innerHTML = `
+    <div class="d-flex">
+      <div class="toast-body">
+        <i class="bi bi-${icon} me-2"></i>
+        ${message}
+      </div>
+    </div>
+  `;
+  document.body.appendChild(toast);
+
+  const bsToast = new bootstrap.Toast(toast, {
+    delay: 3000,
+    autohide: true,
+  });
+  bsToast.show();
+
+  toast.addEventListener("hidden.bs.toast", () => {
+    toast.remove();
+  });
+}
+
+      // Event listener for the "Mark Lecture as Done" button
+      document.getElementById("markDoneBtn").addEventListener("click", function () {
+  const courseId = "course-6";
+  const totalLectures = 20;
+  let completedLectures = parseInt(localStorage.getItem(courseId)) || 0;
+
+  if (completedLectures < totalLectures) {
+    completedLectures++;
+    localStorage.setItem(courseId, completedLectures);
+
+    if (window.parent) {
+      window.parent.postMessage(
+        { courseId: courseId, completedLectures: completedLectures },
+        "*"
+      );
+    }
+
+    showLectureToast(
+      "Lecture marked as done! Progress saved.",
+      "bg-success",
+      "check-circle"
+    );
+  } else {
+    showLectureToast(
+      "All lectures completed!",
+      "bg-warning",
+      "exclamation-circle"
+    );
+  }
+});
+
+      // Open Chatbot in a New Window (Popup)
+      let chatWindow;
+
+document.getElementById("chat-icon").addEventListener("click", function () {
+  if (!chatWindow || chatWindow.closed) {
+    chatWindow = window.open(
+      "chatbot.html",
+      "Chatbot",
+      "width=400,height=600,resizable=yes"
+    );
+
+    if (!chatWindow) {
+      alert("Please allow pop-ups for this site to use the chatbot.");
+    }
+  } else {
+    chatWindow.focus(); // Bring the existing chat window to the front
+  }
+});
+
+    </script>
+  </body>
+</html>

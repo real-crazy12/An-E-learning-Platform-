@@ -1,0 +1,23 @@
+[33mcommit 79ecd775ed2825539c4b505d3cb5a56af31bb166[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Seth Tsidi <sethtsidi7@gmail.com>
+Date:   Sat Jan 18 18:21:37 2025 +0000
+
+    Updated database connection to use environment variables.
+
+[33mcommit 977bc8b8c799816f1cdb771592410d6bb00c26bf[m
+Author: Seth Tsidi <sethtsidi7@gmail.com>
+Date:   Sat Jan 18 17:32:40 2025 +0000
+
+    Add .env to gitignore
+
+[33mcommit e9f4d4ee3dad3e2910f3503bb31fd5299ed65d6a[m
+Author: Seth Tsidi <sethtsidi7@gmail.com>
+Date:   Sat Jan 18 16:41:23 2025 +0000
+
+    Remove .env file and add to .gitignore
+
+[33mcommit c0e79c5896f45475e9d59cfb0ec38d21b42b4f09[m
+Author: Seth Tsidi <sethtsidi7@gmail.com>
+Date:   Sat Jan 18 15:39:07 2025 +0000
+
+    Add .env to .gitignore

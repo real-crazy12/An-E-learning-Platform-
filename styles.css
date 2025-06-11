@@ -1,0 +1,292 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s, box-shadow 0.3s;
+  overflow-x: hidden;
+}
+
+/* Container and Form Styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 20px;
+}
+
+/* Default Light Mode Background */
+.form-container {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  padding: 50px 40px;
+  width: 100%;
+  max-width: 380px;
+  transition: 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+/* Dark Mode Background */
+body[data-bs-theme="dark"] .form-container {
+  background: #333;  /* Dark background for the form */
+  color: #fff;       /* Light text color for contrast */
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2); /* Lighter shadow in dark mode */
+}
+
+/* Light Mode Input Fields */
+.form-container input {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+/* Dark Mode Input Fields */
+body[data-bs-theme="dark"] .form-container input {
+  background: #444;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+/* Header Styling */
+h2 {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+/* Input Group Styling */
+.input-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.input-group label {
+  font-size: 12px; 
+  position: absolute;
+  left: 10px;
+  top: -20px; /* Start above the input */
+  transition: all 0.2s ease-in-out;
+  padding: 0 5px; /* Add some padding to give it space */
+  font-weight: bold;
+}
+
+/* Adjust label when input is focused or contains text */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: -25px;
+  left: 10px;
+  font-size: 12px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  color: #333;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s ease;
+  background: #f9f9f9;
+}
+
+.input-group input:focus {
+  border: 2px solid #6e7cfc;
+  background: #fff;
+}
+
+/* Style for the checkboxes (both Remember Me and Show Password) */
+.form-check {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Specific styles for the checkbox input */
+.form-check-input {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  cursor: pointer;
+  accent-color: #007bff; /* Color for checked state */
+  appearance: none;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  position: relative;
+  outline: none;
+}
+
+/* Add a tick (checkmark) when the checkbox is checked */
+.form-check-input:checked {
+  background-color: #007bff;
+  border: none;
+}
+
+.form-check-input:checked::before {
+  content: "✓";
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  left: 3px;
+  top: -1px;
+}
+
+/* Label styling for checkboxes (Remember Me and Show Password) */
+.form-check-label {
+  cursor: pointer;
+  font-size: 14px;
+
+}
+
+/* Position the eye icon inside the input field */
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+  transition: color 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Change icon color on hover */
+.toggle-password:hover {
+  color: #6e7cfc;
+}
+
+/* Add animation for toggling between the eye and eye-slash */
+.toggle-password i {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Fade-out effect for the icon when switching */
+.toggle-password i.fa-eye-slash {
+  transform: rotate(180deg);
+  opacity: 0.5;
+}
+
+/* Ensure padding for the input field to prevent icon overlap */
+.input-group input {
+  padding-right: 45px;
+}
+
+.btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #6e7cfc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #c08bdaab;
+}
+
+.toggle-btn {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.toggle-btn a {
+  color: #2136f882;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.toggle-btn a:hover {
+  color: #50728a;
+  text-decoration: underline;
+}
+
+.form-container {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+.form-container.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 30px;
+    width: 90%;
+  }
+}
+
+/* Default state: login form visible, signup form hidden */
+#loginForm, #signupForm {
+  display: none; /* Hide forms by default */
+  opacity: 0; /* Set opacity to 0 for smooth transition */
+  transition: opacity 0.3s ease;
+}
+
+#loginForm.active, #signupForm.active {
+  display: block; /* Make active form visible */
+  opacity: 1; /* Fade it in */
+}
+
+/* Dark mode toggle */
+.toggle-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.toggle-icon.on {
+  color:#1540ce; 
+  font-size: 2rem;
+}
+
+.toggle-icon.off {
+  color: black; 
+  font-size: 1.2rem;
+}
+
+/* Style for the loading spinner overlay */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  z-index: 9999;
+}
+
+#passwordStrength {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+#passwordStrength div {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+
+.carousel-message {
+  text-align: center;
+  left: 0;
+}
+

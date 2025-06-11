@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <title>Real Estate Appraisal</title>
+  </head>
+  <style>
+     body{
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      height: 100%;
+      margin: 0;
+    }
+
+    .img {
+      position: relative;
+      height: 100vh; /* Full viewport height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: url("image/Real\ Estate\ Appraisal.jpg") center/cover
+        no-repeat fixed;
+      margin: 0;
+      padding: 0;
+    }
+
+    .img::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.623); /* Dark overlay */
+      z-index: 1; /* Ensure the overlay is behind the text */
+    }
+
+    .img .container {
+      position: relative;
+      z-index: 2; /* Text stays above the overlay */
+      text-align: center;
+      color: white;
+    }
+
+    .img h1,
+    .img p {
+      margin: 0;
+    }
+
+    .img h1 {
+      font-size: 3rem;
+    }
+
+    .img p {
+      font-size: 1.25rem;
+    }
+  </style>
+  <body>
+    <section class="img">
+      <div class="container">
+        <section class="img">
+          <div class="container">
+            <h1 class="display-4 fw-bold">Unleash Your Potential</h1>
+          <p class="lead mb-4">
+        Learning is the first step to unlocking your full potential.
+         Open the door to endless possibilities and see how far you can go. 
+         Begin your journey and start unleashing your greatness!
+        </p>
+            <!-- Motivational Quotes Section -->
+            <div id="quote-section" class="text-center mb-4">
+              <blockquote class="blockquote">
+                <p id="quote" class="mb-0 fw-bold">
+                  "Opportunities don't happen. You create them." – Chris Grosser
+                </p>
+              </blockquote>
+            </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+          <a href="Real_Estate_Appraisal(get_started).html"
+            ><button type="button" class="btn btn-primary btn-lg px-4">
+              Get Started
+            </button></a
+          >
+        </div>
+      </div>
+    </section>
+    <script src="E-learning.js"></script>
+  </body>
+</html>

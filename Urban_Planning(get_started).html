@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
+    <title>PDF Audio Converter with Voice Options</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <style>
+      body {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        padding: 20px;
+      }
+
+      .background-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("image/urban.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        filter: brightness(0.6);
+        z-index: -1;
+      }
+
+      .pdf-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        margin: auto;
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .pdf-text {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        max-height: 400px;
+        overflow-y: auto;
+        font-size: 1.2rem;
+        color: #333;
+        line-height: 1.8;
+        text-align: justify;
+        position: relative;
+      }
+
+      .highlight {
+        background-color: #ffeb3b;
+        color: #000;
+        font-weight: bold;
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+
+      .slider-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .custom-select-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 200px;
+      }
+
+      .form-select {
+        appearance: none;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px 40px 10px 12px;
+        font-size: 16px;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .form-select:hover {
+        border-color: #007bff;
+        background-color: #fff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-select:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+
+      .btn-download {
+        margin-left: 10px;
+      }
+
+      .reading-time {
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 10px;
+        color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="background-image"></div>
+    <div class="pdf-container">
+      <h2>Introduction to Urban Planning</h2>
+      <p>
+        Convert this PDF to audio and follow along as it highlights the words
+        being read aloud.
+      </p>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button class="btn btn-danger" id="playBtn" onclick="startReading()">Play</button>
+        <button class="btn btn-secondary" id="pauseBtn" onclick="pauseReading()">Pause</button>
+        <button class="btn btn-info" id="resumeBtn" onclick="resumeReading()">Resume</button>
+        <div class="slider-container">
+          <label for="speedSlider">Speed: </label>
+          <input
+            type="range"
+            id="speedSlider"
+            min="0.5"
+            max="2"
+            step="0.1"
+            value="1"
+            oninput="adjustSpeed()"
+          />
+        </div>
+        <div class="slider-container">
+          <label for="voiceSelect" class="form-label">Voice:</label>
+          <div class="custom-select-wrapper">
+            <select id="voiceSelect" class="form-select">
+              <!-- Dynamically Populated Options -->
+            </select>
+          </div>
+        </div>
+        <a
+          href="documents/Intership Report on both Field and In_Person.pdf"
+          download
+          class="btn btn-primary btn-download"
+          >Download PDF</a
+        >
+      </div>
+
+      <!-- Section Navigation -->
+      <div class="slider-container">
+        <label for="sectionSelect" class="form-label">Jump to Section:</label>
+        <div class="custom-select-wrapper">
+          <select id="sectionSelect" class="form-select" onchange="jumpToSection()">
+            <!-- Dynamically Populated Section Options -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Estimated Reading Time -->
+      <p class="reading-time" id="readingTime">Estimated Reading Time: 0 seconds</p>
+
+      <!-- PDF Content Display -->
+      <div id="pdfViewer" class="pdf-text"></div>
+    </div>
+
+    <script>
+     const pdfFile = "documents/HTML5NotesForProfessionals.pdf?v=" + new Date().getTime();
+      let currentWordIndex = 0;
+      let wordArray = [];
+      let fullText = "";
+      let speaking = false;
+      let speechRate = 1;
+      let isPaused = false;
+
+      document.addEventListener("DOMContentLoaded", () => {
+  localStorage.removeItem("fullText"); // Clear the cached PDF text
+  loadPDF();
+  populateVoiceOptions();
+});
+
+
+      async function loadPDF() {
+        if (localStorage.getItem("fullText")) {
+          fullText = localStorage.getItem("fullText");
+          wordArray = fullText.split(/\s+/);
+          displayText();
+          updateReadingTime();
+          populateSections();
+        } else {
+          const pdf = await pdfjsLib.getDocument(pdfFile).promise;
+          let text = "";
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const textContent = await page.getTextContent();
+            const pageText = textContent.items.map((item) => item.str).join(" ");
+            text += pageText + "\n\n";
+          }
+          fullText = text;
+          wordArray = fullText.split(/\s+/);
+          localStorage.setItem("fullText", fullText);
+          displayText();
+          updateReadingTime();
+          populateSections();
+        }
+      }
+
+      function displayText() {
+        const pdfViewer = document.getElementById("pdfViewer");
+        pdfViewer.textContent = fullText;
+      }
+
+      function startReading() {
+        const selectedVoice = document.getElementById("voiceSelect").value;
+        if (!speaking) {
+          speaking = true;
+          responsiveVoice.speak(fullText, selectedVoice, {
+            rate: speechRate,
+            onstart: () => (isPaused = false),
+            onend: () => {
+              speaking = false;
+              currentWordIndex = 0;
+            },
+          });
+        }
+      }
+
+      function pauseReading() {
+        if (speaking) {
+          responsiveVoice.pause();
+          isPaused = true;
+        }
+      }
+
+      function resumeReading() {
+        if (isPaused) {
+          responsiveVoice.resume();
+          isPaused = false;
+        }
+      }
+
+      function adjustSpeed() {
+        speechRate = document.getElementById("speedSlider").value;
+        updateReadingTime();
+      }
+
+      function updateReadingTime() {
+        const readingTimeElement = document.getElementById("readingTime");
+        const wordCount = wordArray.length;
+        const timeInSeconds = Math.ceil(wordCount / (speechRate * 150));
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = timeInSeconds % 60;
+        readingTimeElement.textContent = `Estimated Reading Time: ${minutes} minutes ${seconds} seconds`;
+      }
+
+      function populateVoiceOptions() {
+        const voiceSelect = document.getElementById("voiceSelect");
+        const voices = responsiveVoice.getVoices();
+        voiceSelect.innerHTML = voices
+          .map((voice) => `<option value="${voice.name}">${voice.name}</option>`)
+          .join("");
+      }
+
+      function populateSections() {
+        const sectionSelect = document.getElementById("sectionSelect");
+        const sections = [
+          { name: "Introduction", index: 0 },
+          { name: "Chapter 1", index: 500 },
+          { name: "Chapter 2", index: 1000 },
+        ];
+        sectionSelect.innerHTML = sections
+          .map((section) => `<option value="${section.index}">${section.name}</option>`)
+          .join("");
+      }
+
+      function jumpToSection() {
+        const sectionIndex = document.getElementById("sectionSelect").value;
+        const pdfViewer = document.getElementById("pdfViewer");
+        pdfViewer.scrollTop = sectionIndex;
+      }
+    </script>
+  </body>
+</html>
