@@ -1,0 +1,566 @@
+body {
+  height: 2000px;
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  h1,p{
+    font-family: 'Montserrat', sans-serif;
+  }
+
+/* Hide carousel control buttons by default */
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Show carousel control buttons on hover */
+#school:hover .carousel-control-prev,
+#school:hover .carousel-control-next {
+  opacity: 1;
+}
+
+
+/*Dark mode toggle*/
+
+.toggle-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* ON state when dark mode is active */
+.toggle-icon.on {
+  color: #1540ce; /* Blue when dark mode is active */
+  font-size: 2rem;
+}
+
+/* OFF state when light mode is active */
+.toggle-icon.off {
+  color: black; /* Black when light mode is active */
+  font-size: 1.2rem;
+}
+
+body[data-bs-theme="dark"] {
+  background-color: #121212;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: 03s, box-shadow 0.3s; /*without the transform it has a smooth transition*/
+}
+
+body[data-bs-theme="light"] {
+  background-color: white;
+  color: #121212;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: 03s, box-shadow 0.3s;
+}
+
+.card[data-bs-theme="light"] {
+  background-color: white;
+  color: #121212;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card[data-bs-theme="dark"] {
+  background-color: #1e1e1e;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+/* Hearts */
+.fa-regular.fa-heart {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: grey; /* Regular outline color */
+}
+
+.fa-solid.fa-heart {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.fa-heart:hover {
+  transform: scale(1.1);
+}
+
+.selected {
+  color: red; /* Ensure the heart stays red when selected */
+}
+
+/*Heart position*/
+.card-body {
+  position: relative;
+}
+.love-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 7px;
+}
+/*Stars*/
+.fa-star {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ccc; /* Default star color */
+}
+
+.fa-star.fa-solid {
+  color: gold; /* Highlighted star color */
+}
+
+#user-rating {
+  font-weight: bold;
+}
+
+.bxs-book {
+  color: rgb(255, 174, 24);
+  font-size: 24px;
+}
+
+.bxs-book:hover {
+  transform: scale(1.1);
+}
+
+.text {
+  display: inline-block;
+  padding-top: 20px;
+  padding-left: 10px;
+  color: rgb(255, 174, 24);
+  font-size: 15px;
+  font-weight: bold;
+}
+.feature-icon-small {
+  width: 3rem;
+  height: 3rem;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.carousel,
+#school {
+  margin-top: 20px;
+}
+
+.carousel-item img {
+  height: 480px; /* Adjust the height as needed */
+  object-fit: cover;
+  filter: brightness(0.6);
+  border-radius: 5px;
+}
+
+.card-text {
+  text-align: left;
+
+}
+
+.swiper {
+  width: 80%;
+  height: 100%;
+  margin: auto;
+}
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #00e1ff; /* Change this to the desired color */
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #00ffea; /* Change this to the desired hover color */
+}
+
+/*Three Course Description*/
+.bd-placeholder-img:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease-in-out;
+}
+
+.btn-primary {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.btn-primary:hover {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.links {
+  text-decoration: none;
+}
+.links:hover {
+  color: rgb(56, 180, 211);
+  cursor: pointer;
+}
+
+.links:visited{
+  color: purple;
+}
+.nav-link{
+color: #499af1;
+
+}
+
+.nav-link:hover {
+  transform: scale(1.1);
+  text-decoration: underline;
+}
+
+
+/*Back to the top button*/
+
+#backToTop {
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed position, so it stays in place */
+  bottom: 20px; /* 20px from the bottom */
+  left: 50%; /* Center horizontally */
+  transform: translateX(
+    -50%
+  ); /* Adjust position to perfectly center the button */
+  z-index: 99; /* Ensures it appears above other content */
+  border: none;
+  outline: none;
+  background-color: #000; /* Background color */
+  color: white; /* Text color */
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 55%; /* Round button */
+  font-size: 18px;
+}
+
+#backToTop:hover {
+  background-color: #555; /* Darker background on hover */
+}
+
+/* Learning tips card default style */
+.learning-tips-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease;
+  color: #444;
+}
+
+.learning-tips-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon container */
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  background-color: #f0f0f0;
+}
+
+.icon-color {
+  color: #007bff;
+  font-size: 3em;
+}
+
+/* Info container */
+.info-container {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%; /* Make it cover the full height */
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  transition: opacity 0.4s ease, top 0.4s ease; /* Slide in from the top */
+}
+
+/* On hover, the .info-container slides up and becomes visible */
+.learning-tips-card:hover .info-container {
+  opacity: 1;
+  top: 0; /* Fully covers the card */
+}
+
+/* Dark mode styles */
+body[data-bs-theme="dark"] .learning-tips-card {
+  background-color: #1e1e1e; /* Dark mode card background */
+  border-color: #444; /* Adjust border color for dark mode */
+  color: #e0e0e0; /* Light text for dark mode */
+}
+
+body[data-bs-theme="dark"] .icon-container {
+  background-color: #2c2c2c; /* Dark mode background for icons */
+}
+
+body[data-bs-theme="dark"] .info-container {
+  background-color: rgba(40, 40, 40, 0.9); /* Dark mode background for info */
+  color: #f0f0f0; /* Light text for dark mode info */
+}
+
+body[data-bs-theme="dark"] .learning-tips-card:hover {
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Lighter shadow in dark mode */
+}
+
+ /* Default light mode styles */
+.popup {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background-color: rgba(255, 249, 249, 0.973); /* Light mode background */
+  color: rgb(14, 13, 13); /* Light mode text color */
+  padding: 15px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  word-wrap: break-word;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 2s forwards, fadeOut 2s forwards 5s;
+  border-radius: 10px;
+}
+
+/* Dark mode styles based on your existing dark mode setup */
+body[data-bs-theme="dark"] .popup {
+  background-color: #1e1e1e; /* Dark mode background */
+  color: #e0e0e0; /* Light text for dark mode */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.6); /* Darker shadow for contrast */
+}
+
+/*Random Quote Generator animation*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s, transform 1s;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* General styling for the search bar */
+.search-bar {
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  max-width: 400px;
+  position: relative; /* Necessary to position the dropdown correctly */
+  z-index: 1000; /* Ensure it stays above other content */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.search-bar:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+/* Input field styles */
+.search-bar .form-control {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Button styles for the search icon */
+.search-bar .input-group-text {
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-bar .input-group-text:hover {
+  transform: scale(1.1); /* Slight scale on hover */
+}
+
+/* Suggestion dropdown styling */
+.suggestion-dropdown {
+  position: absolute;
+  top: calc(100% + 5px); /* Drop it directly below the search bar */
+  left: 0;
+  right: 0;
+  z-index: 1050; /* Keep it above other elements */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 250px; /* Limit the height for scrolling */
+  overflow-y: auto;
+  display: none; /* Hidden by default */
+  padding: 0; /* No padding for a cleaner look */
+  background-color: #fff; /* Default light background */
+}
+
+/* Suggestions list styling */
+.suggestion-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.suggestion-dropdown li {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fcf2f2; /* Default text color for light mode */
+}
+
+.suggestion-dropdown li:hover {
+  background-color: #f1f1f1;
+}
+
+/* Highlight for suggestions using arrow keys */
+.suggestion-dropdown li.highlight {
+  background-color: #c5bfbf;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 20px;
+  display: block; /* Ensure it behaves like a block element */
+  padding: 10px 15px; /* Match the padding of other list items */
+  box-sizing: border-box; /* Ensures padding is included in the width calculation */
+}
+
+#clear-history-btn {
+  margin-left: 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 5px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#clear-history-btn:hover {
+  background-color: #c82333;
+}
+
+.suggestion-link {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.suggestion-link:hover {
+  text-decoration: underline;
+  color: #007bff;
+}
+
+[data-bs-theme="dark"] .suggestion-link {
+  color: #fff; /* White color for links in dark mode */
+}
+
+[data-bs-theme="dark"] .suggestion-link:hover {
+  color: #007bff; /* Add a hover effect with a blue color for dark mode */
+}
+
+ul {
+  list-style-type: none; /* Removes the bullet points */
+  padding-left: 6px; /* Removes the indentation */
+}
+
+li {
+  padding: 5px 0; /* Optional: add some padding to the list items */
+}
+
+
+.toast-container {
+  top: 10px;
+  right: 10px;
+}
+
+/* Style for the loading spinner overlay */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+  z-index: 9999;
+}
+
+/* Ensure cards have equal heights */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%; /* Makes all cards equal height */
+}
+
+.card-body {
+  flex-grow: 1; /* Ensures the body grows to fill available space */
+}
+
+.card img {
+  max-height: 200px; /* Optional: Limit the image height to make all images uniform */
+  object-fit: cover;
+}
+
+  /* Floating Chat Icon */
+  .chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+
