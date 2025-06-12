@@ -546,15 +546,6 @@ function hideLoading() {
   }
 }
 
-// Main window load function to check authentication and handle session
-window.onload = function () {
-  const token = localStorage.getItem("authToken");
-  if (!token) {
-    showModal("You must be logged in to access this page.");
-    showLoading();
-    setTimeout(() => (window.location.href = "login.html"), 1500);
-    return;
-  }
 
   // Verify token with the backend, include 'Bearer' prefix
   fetch("http://localhost:5000/protected-route", {
